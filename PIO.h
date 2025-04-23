@@ -123,16 +123,3 @@ inline void safe_write_24bit(uint32_t data) {
   GPIO7_DR = safe_clear7_8bit(GPIO7_DR)  | (data & lsb0_3mask_8bit)            | ((data & lsb20_21mask_32bit) >> 10) | ((data & lsb22_23mask_32bit) >> 6);
   GPIO9_DR = safe_clear9_4bit(GPIO9_DR)  | ((data & lsb16_18mask_32bit) >> 12) | ((data & lsb19_19mask_32bit) >> 11);
 }
-
-//example code to cycle through all the 24 pins one after the other
-void setup() {
-  set_24bit(OUTPUT);
-}
-
-void loop() {
-  uint32_t data = 1;
-  for(int i=0; i<24; i++){
-    safe_write_24bit(data<<i);
-    delay(500);
-  }
-}
